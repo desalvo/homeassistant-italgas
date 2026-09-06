@@ -1,0 +1,46 @@
+{
+  "title": "Italgas",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Italgas",
+        "description": "Enter your MyItalgas account credentials. Session cookies and Struts tokens are handled automatically.",
+        "data": {
+          "username": "Username",
+          "password": "Password",
+          "verify_ssl": "Verify SSL certificate"
+        }
+      },
+      "pdr": {
+        "title": "Configure Italgas supply",
+        "description": "Select the PDR and assign a friendly name to the supply.",
+        "data": {
+          "pdr": "PDR",
+          "name": "Supply name"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid MyItalgas credentials or login rejected",
+      "cannot_connect": "Unable to complete the Italgas connection",
+      "name_required": "Enter a name for the supply"
+    },
+    "abort": {
+      "already_configured": "This PDR is already configured",
+      "cannot_connect": "Unable to retrieve Italgas supplies"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "latest_interval_consumption": {
+        "name": "Latest interval consumption"
+      },
+      "meter_reading": {
+        "name": "Gas consumption"
+      },
+      "daily_consumption": {
+        "name": "Daily gas consumption"
+      }
+    }
+  }
+}

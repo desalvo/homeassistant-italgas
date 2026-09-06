@@ -1,0 +1,13 @@
+{
+  "domain": "italgas",
+  "name": "Italgas",
+  "version": "0.3.8",
+  "config_flow": true,
+  "documentation": "https://github.com/braket71/homeassistant-italgas",
+  "issue_tracker": "https://github.com/braket71/homeassistant-italgas/issues",
+  "codeowners": [
+    "@braket71"
+  ],
+  "iot_class": "cloud_polling",
+  "requirements": []
+}

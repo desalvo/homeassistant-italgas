@@ -1,0 +1,46 @@
+{
+  "title": "Italgas",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Italgas",
+        "description": "Inserisci le credenziali del tuo account MyItalgas. La sessione e i token Struts vengono gestiti automaticamente.",
+        "data": {
+          "username": "Username",
+          "password": "Password",
+          "verify_ssl": "Verifica certificato SSL"
+        }
+      },
+      "pdr": {
+        "title": "Configura utenza Italgas",
+        "description": "Seleziona il PDR e assegna un nome riconoscibile all'utenza.",
+        "data": {
+          "pdr": "PDR",
+          "name": "Nome utenza"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Credenziali MyItalgas non valide o login rifiutato",
+      "cannot_connect": "Impossibile completare il collegamento a Italgas",
+      "name_required": "Inserisci un nome per l'utenza"
+    },
+    "abort": {
+      "already_configured": "Questo PDR è già configurato",
+      "cannot_connect": "Impossibile recuperare le forniture Italgas"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "latest_interval_consumption": {
+        "name": "Consumo ultimo intervallo"
+      },
+      "meter_reading": {
+        "name": "Consumo gas"
+      },
+      "daily_consumption": {
+        "name": "Consumo gas giornaliero"
+      }
+    }
+  }
+}
