@@ -14,6 +14,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 
 from .api import GasPortalAuthError, GasPortalError, MyItalgasClient
 from .arera import async_fetch_arera_gas_price
+from .arera_cache import AreraPriceCache
 from .const import (
     CONF_HISTORY_SEEDED,
     CONF_PASSWORD,
@@ -44,6 +45,7 @@ class GasPortalCoordinator(DataUpdateCoordinator[GasPortalData]):
         )
         self.client = client
         self._history_sync_task: asyncio.Task[None] | None = None
+        self._arera_cache = AreraPriceCache(hass)
 
     async def _async_update_data(self) -> GasPortalData:
         """Fetch recent readings for entity state.
@@ -68,11 +70,35 @@ class GasPortalCoordinator(DataUpdateCoordinator[GasPortalData]):
             price = await async_fetch_arera_gas_price(async_get_clientsession(self.hass))
             price_value = price.value_eur_smc
             price_period = price.period
+
+            previous_value = (
+                self.data.national_price_eur_m3 if self.data is not None else None
+            )
+            previous_period = (
+                self.data.national_price_period if self.data is not None else None
+            )
+            if price_value != previous_value or price_period != previous_period:
+                await self._arera_cache.async_save(price)
+                _LOGGER.info(
+                    "Updated ARERA gas reference price to %s EUR/Smc for %s",
+                    price_value,
+                    price_period,
+                )
         except ValueError as err:
             _LOGGER.warning("Unable to refresh ARERA gas reference price: %s", err)
-            if self.data is not None:
+            if self.data is not None and self.data.national_price_eur_m3 is not None:
                 price_value = self.data.national_price_eur_m3
                 price_period = self.data.national_price_period
+            else:
+                cached_price = await self._arera_cache.async_load()
+                if cached_price is not None:
+                    price_value = cached_price.value_eur_smc
+                    price_period = cached_price.period
+                    _LOGGER.debug(
+                        "Using cached ARERA gas reference price %s EUR/Smc for %s",
+                        price_value,
+                        price_period,
+                    )
 
         return replace(
             data,

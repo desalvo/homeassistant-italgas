@@ -1,7 +1,7 @@
 {
   "domain": "italgas",
   "name": "Italgas",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "config_flow": true,
   "documentation": "https://github.com/braket71/homeassistant-italgas",
   "issue_tracker": "https://github.com/braket71/homeassistant-italgas/issues",

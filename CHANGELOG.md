@@ -1,3 +1,10 @@
+## 0.3.9
+
+- Keep **Prezzo gas medio nazionale (ARERA)** updated automatically on the normal 6-hour integration refresh cycle.
+- Persist the last valid ARERA CMEM,m value in Home Assistant storage so the price survives restarts and remains available during temporary ARERA outages.
+- Save the cache only when ARERA publishes a different month/value, avoiding unnecessary writes.
+- Gas-consumption updates remain independent from ARERA availability.
+
 # Changelog
 
 ## 0.3.7
